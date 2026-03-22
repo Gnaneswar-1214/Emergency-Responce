@@ -1,7 +1,9 @@
-#include "crow_all.h"
-#include "json.hpp"
 #include "data_structures.hpp"
 #include "benchmarker.hpp"
+#include "json.hpp"
+#undef max
+#undef min
+#include "crow_all.h"
 
 using json = nlohmann::json;
 
