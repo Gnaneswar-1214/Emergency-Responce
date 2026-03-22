@@ -16,7 +16,7 @@ async function runBenchmark() {
     document.getElementById('runBtn').disabled = true;
 
     try {
-        const response = await fetch('/benchmark', {
+        const response = await fetch('/api/benchmark', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ sizes, distribution })
