@@ -1,0 +1,27 @@
+# Virtual Environment
+venv/
+env/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Temporary Files / Artifacts
+analysis_output.txt
+assignment_analysis.txt
+tunnel.txt
+term_output.txt
+capture_output.py
+analyze_inputs.py
+analyze_assignment.py
+get_native_output.py
+
+# Sample PDFs (Exclude originals, keep our generated one)
+DS_Assignment*.pdf
+FR-DCO*.pdf
+
+# IDE / OS specific
+.vscode/
+.idea/
+.DS_Store

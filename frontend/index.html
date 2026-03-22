@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Response Dispatch System - Benchmarks</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Emergency Response Dispatch System</h1>
+            <p>Design and Performance Evaluation</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="controls glass-panel">
+            <h2>Benchmark Controls</h2>
+            <div class="control-group">
+                <div class="input-field">
+                    <label for="datasets">Dataset Sizes (comma separated, max 50000):</label>
+                    <input type="text" id="datasets" value="1000, 5000, 10000, 20000">
+                </div>
+                <div class="input-field">
+                    <label for="distribution">Distribution Type:</label>
+                    <select id="distribution">
+                        <option value="Random">Random</option>
+                        <option value="Skewed">Skewed</option>
+                        <option value="Sorted">Sorted</option>
+                        <option value="Reverse">Reverse</option>
+                        <option value="CSV Dataset">CSV Dataset (Real Data)</option>
+                    </select>
+                </div>
+                <button id="runBtn" class="primary-btn" onclick="runBenchmark()">Run Benchmark</button>
+            </div>
+            <div id="loading" class="hidden">
+                <div class="spinner"></div>
+                <span>Running Benchmarks... it may take a few moments</span>
+            </div>
+        </section>
+
+        <section class="results hidden" id="resultsSection">
+            <h2>Performance Graphs</h2>
+            
+            <div class="chart-grid">
+                <div class="chart-container glass-panel">
+                    <h3>Insert Time vs Input Size</h3>
+                    <canvas id="insertChart"></canvas>
+                </div>
+                <div class="chart-container glass-panel">
+                    <h3>Extract Max Time vs Input Size</h3>
+                    <canvas id="extractChart"></canvas>
+                </div>
+                
+                <div class="chart-container glass-panel">
+                    <h3>Update Severity Time vs Input Size</h3>
+                    <canvas id="updateChart"></canvas>
+                </div>
+                <div class="chart-container glass-panel">
+                    <h3>Delete Time vs Input Size</h3>
+                    <canvas id="deleteChart"></canvas>
+                </div>
+                
+                <div class="chart-container glass-panel">
+                    <h3>Top-K Time vs Input Size</h3>
+                    <canvas id="topkChart"></canvas>
+                </div>
+                <div class="chart-container glass-panel">
+                    <h3>Memory Usage vs Input Size</h3>
+                    <canvas id="memoryChart"></canvas>
+                </div>
+            </div>
+
+            <h2 class="mt-4">Metrics Data</h2>
+            <div class="table-container glass-panel">
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>Data Structure</th>
+                            <th>Size</th>
+                            <th>Insert (ms)</th>
+                            <th>Extract (ms)</th>
+                            <th>Update (ms)</th>
+                            <th>Top-K (ms)</th>
+                            <th>Memory (Bytes)</th>
+                            <th>Advanced Analytics</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <section class="recommendation glass-panel mt-4">
+                <h2>Final Recommendation</h2>
+                <div class="winner">
+                    <h3>🏆 Priority Queue (Heap)</h3>
+                    <p>Based on our metrics, the <strong>Heap</strong> is the optimal data structure for the Emergency Response Dispatch System. It maintains excellent O(log N) insertion and extraction time constants even as dataset size scales up to 50,000+ entries. Although Hash Map provides O(1) inserts, its Top-K and Max-Extraction fall apart at scale, hitting O(N log N) or O(N). The BST performs well but has higher constant factors due to expensive object rotations. Sorted array is inefficient for O(N) inserts.</p>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
