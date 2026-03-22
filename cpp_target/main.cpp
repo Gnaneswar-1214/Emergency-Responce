@@ -27,8 +27,7 @@ int main() {
     });
 
     // Core Benchmark API Gateway
-    CROW_ROUTE(app, "/api/benchmark").methods(crow::HTTPMethod::POST)
-    ([](const crow::request& req) {
+    auto benchmark_handler = [](const crow::request& req) {
         auto x = crow::json::load(req.body);
         if (!x) return crow::response(400);
 
@@ -60,11 +59,18 @@ int main() {
         AVLTreeTracker avl;
         final_response["Balanced BST"] = MetricsBenchmarker::run_benchmarks(&avl, dataset);
 
+        json payload;
+        payload["status"] = "success";
+        payload["data"] = final_response;
+
         crow::response res;
-        res.body = final_response.dump();
+        res.body = payload.dump();
         res.add_header("Content-Type", "application/json");
         return res;
-    });
+    };
+
+    CROW_ROUTE(app, "/api/benchmark").methods(crow::HTTPMethod::POST)(benchmark_handler);
+    CROW_ROUTE(app, "/benchmark").methods(crow::HTTPMethod::POST)(benchmark_handler);
 
     std::cout << "Starting C++ High-Performance Dispatch Server on port 10000...\n";
     app.port(10000).multithreaded().run();
